@@ -17,6 +17,9 @@
    */
    getFileNameExtension: function (file) {
     // XXX implement me !
+    if (file === null) {
+    	return null;
+    }
     var splitFileName = file.split('.');
     var extension = splitFileName.length > 1 ? splitFileName[splitFileName.length - 1] : null;
     return extension
@@ -73,9 +76,12 @@
    			return false;
    		}
    	}
+   	if (arr1.length !== arr2.length) {
+   		return false;
+   	}
    	var sortedArr1 = arr1.sort();
    	var sortedArr2 = arr2.sort();
-   	if (sortedArr1.find(function(idx, ele) {
+   	if (sortedArr1.find(function(ele, idx) {
    		return sortedArr2[idx] !== ele;
    	})) {
    		return false;
@@ -123,9 +129,9 @@
    	var origArrLookup = {};
 
    	var compressedStrArr = arr.map(function(ele, idx) {
-   		var compressedStr = getCompressedString(ele);
+   		var compressedStr = this.Tester.getCompressedString(ele);
    		origArrLookup[compressedStr] = idx;
-   		return getCompressedString(ele);
+   		return this.Tester.getCompressedString(ele);
    	})
    	var sortedCompressedStrArr = compressedStrArr.sort();
    	var returnArr = [];
